@@ -1,0 +1,136 @@
+### default
+GET http://localhost:8000/
+Accept: application/json
+
+### ping #1
+GET http://localhost:8000/api/ping
+Accept: application/json
+
+> {%
+    client.test("Unauthorized", function() {
+        client.assert(response.status === 401, "Response status is not 401");
+    });
+%}
+
+### Get all #1
+GET http://localhost:8000/api/books
+Accept: application/json
+
+> {%
+    client.test("Initial data", function() {
+        client.assert(Object.keys(response.body.books).length === 5, "Record count is not 5");
+    });
+%}
+
+### login
+POST http://localhost:8000/api/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "123"
+}
+
+### ping #2
+GET http://localhost:8000/api/ping
+Accept: application/json
+
+> {%
+    client.test("Authorized", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### whoami
+GET http://localhost:8000/api/whoami
+Accept: application/json
+
+> {%
+    client.test("Logged in User", function() {
+        client.assert(response.body.user === "admin", "whoami is not admin");
+    });
+%}
+
+### Update
+PUT http://localhost:8000/api/books/2
+Content-Type: application/json
+
+{
+  "id": 2,
+  "title": "React to Python",
+  "author": "Slater"
+}
+
+### Insert
+POST http://localhost:8000/api/books
+Content-Type: application/json
+
+{
+  "title": "The Demon-Haunted World",
+  "author": "Sagan"
+}
+
+> {%
+    client.test("Insert Record", function() {
+        client.assert(response.status === 201, "Response status is not 201");
+    });
+%}
+
+### Insert #2
+POST http://localhost:8000/api/books
+Content-Type: application/json
+
+{
+  "title": "Cosmos",
+  "author": "Sagan"
+}
+
+> {%
+    client.test("Existing Record", function() {
+        client.assert(response.status === 409, "Response status is not 409");
+    });
+%}
+
+### Get all #2
+GET http://localhost:8000/api/books
+Accept: application/json
+
+> {%
+    client.test("Data after insert", function() {
+        client.assert(Object.keys(response.body.books).length === 6, "Record count is not 6");
+    });
+%}
+
+### Delete #1
+DELETE http://localhost:8000/api/books/6
+
+> {%
+    client.test("Delete Record", function() {
+        client.assert(response.status === 204, "Response status is not 204");
+    });
+%}
+
+### Delete #2
+DELETE http://localhost:8000/api/books/6
+
+> {%
+    client.test("Delete Missing Record", function() {
+        client.assert(response.status === 404, "Response status is not 404");
+    });
+%}
+
+### Get all #3
+GET http://localhost:8000/api/books
+Accept: application/json
+
+> {%
+    client.test("Data after delete", function() {
+        client.assert(Object.keys(response.body.books).length === 5, "Record count is not 5");
+    });
+%}
+
+### Logout
+GET http://localhost:8000/api/logout
+Accept: application/json
+
+###

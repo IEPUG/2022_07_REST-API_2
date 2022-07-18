@@ -1,0 +1,11 @@
+*.pyc
+*.swp
+*.dat
+*.bak
+*.log
+*.db
+.idea/
+venv/
+__pycache__/
+
+
