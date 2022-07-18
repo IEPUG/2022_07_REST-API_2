@@ -35,7 +35,7 @@ class Login(Resource):
 
     @staticmethod
     def validateLogin(user, pwd):
-        # TODO: Use db.employee table for user validation
+        # TODO: Use db.user table for user validation
         SECRET_PASSWORD = generate_password_hash('123')
         return user == 'admin' and check_password_hash(SECRET_PASSWORD, pwd)
 
