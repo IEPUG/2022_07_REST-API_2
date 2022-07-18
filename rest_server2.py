@@ -1,4 +1,4 @@
-from flask import Flask, request, Response
+from flask import Flask, Response
 from flask_restful import Resource, Api
 import logging
 import os
@@ -12,16 +12,6 @@ log.setLevel(logging.INFO)
 
 app = Flask(__name__)
 app.config.update(SECRET_KEY=os.urandom(16))
-
-
-@app.errorhandler(404)
-def request_not_found(err):
-    return Response('NOT FOUND', 404)
-
-
-@app.before_request
-def request_log():
-    log.info(f"[{request.method}] {request.full_path}")
 
 
 @app.route('/', methods=['GET'])

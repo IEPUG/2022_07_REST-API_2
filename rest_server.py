@@ -38,16 +38,6 @@ def unauthorized_callback():
     return Response("UNAUTHORIZED", 401)
 
 
-@app.errorhandler(404)
-def request_not_found(err):
-    return Response('NOT FOUND', 404)
-
-
-@app.before_request
-def request_log():
-    log.info(f"[{request.method}] {request.full_path}")
-
-
 @app.before_request
 def refresh_session():
     session.modified = True
