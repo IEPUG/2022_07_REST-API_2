@@ -28,6 +28,21 @@ Content-Type: application/json
 
 {
   "username": "admin",
+  "password": "1234"
+}
+
+> {%
+    client.test("Failed Login", function() {
+        client.assert(response.status === 401, "Response status is not 401");
+    });
+%}
+
+### login
+POST http://localhost:8000/api/login
+Content-Type: application/json
+
+{
+  "username": "admin",
   "password": "123"
 }
 
@@ -58,7 +73,7 @@ Content-Type: application/json
 {
   "id": 2,
   "title": "React to Python",
-  "author": "Slater"
+  "author": "John Sheehan"
 }
 
 ### Insert
@@ -67,7 +82,7 @@ Content-Type: application/json
 
 {
   "title": "The Demon-Haunted World",
-  "author": "Sagan"
+  "author": "Carl Sagan"
 }
 
 > {%
@@ -82,7 +97,7 @@ Content-Type: application/json
 
 {
   "title": "Cosmos",
-  "author": "Sagan"
+  "author": "Carl Sagan"
 }
 
 > {%

@@ -5,7 +5,8 @@ import os
 from datetime import timedelta
 
 from admin_routes import admin_api, User
-from db_routes import db_api, db_init
+from db_routes import db_api
+from db_utils import db_init
 
 fmt = "[%(asctime)s]|%(levelname)s|[%(module)s]:%(funcName)s()|%(message)s"
 logging.basicConfig(format=fmt)
