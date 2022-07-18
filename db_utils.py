@@ -4,7 +4,7 @@ import os
 
 log = logging.getLogger(__name__)
 
-DB_NAME = './data.db'
+DB_NAME = './books.db'
 
 IntegrityError = sqlite3.IntegrityError
 
