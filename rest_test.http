@@ -18,7 +18,7 @@ Accept: application/json
 
 > {%
     client.test("Initial data", function() {
-        client.assert(Object.keys(response.body.books).length === 5, "Record count is not 5");
+        client.assert(Object.keys(response.body['books']).length === 5, "Record count is not 5");
     });
 %}
 
@@ -47,7 +47,7 @@ Accept: application/json
 
 > {%
     client.test("Logged in User", function() {
-        client.assert(response.body.user === "admin", "whoami is not admin");
+        client.assert(response.body['user'] === "admin", "whoami is not admin");
     });
 %}
 
@@ -97,7 +97,7 @@ Accept: application/json
 
 > {%
     client.test("Data after insert", function() {
-        client.assert(Object.keys(response.body.books).length === 6, "Record count is not 6");
+        client.assert(Object.keys(response.body['books']).length === 6, "Record count is not 6");
     });
 %}
 
@@ -125,7 +125,7 @@ Accept: application/json
 
 > {%
     client.test("Data after delete", function() {
-        client.assert(Object.keys(response.body.books).length === 5, "Record count is not 5");
+        client.assert(Object.keys(response.body['books']).length === 5, "Record count is not 5");
     });
 %}
 

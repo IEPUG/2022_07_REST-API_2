@@ -63,17 +63,15 @@ def db_init():
 
 
 class Books(Resource):
-    def get(self):
+    @staticmethod
+    def get():
         records = select('SELECT id, title, author FROM Books')
         return {'books': records if len(records or '') > 0 else []}
 
     @flask_login.login_required
     def post(self):
+        title = ''
         try:
-            # payload = request.get_json()
-            # title = payload['title']
-            # author = payload['author']
-
             parser = reqparse.RequestParser()
             parser.add_argument('title', type=str)
             parser.add_argument('author', type=str)
@@ -94,16 +92,13 @@ class Books(Resource):
 
 
 class Book(Resource):
-    def get(self, book_id):
+    @staticmethod
+    def get(book_id):
         records = select('SELECT id, title, author FROM Books WHERE id = ?', (book_id,))
         return {'book': records[0] if len(records) > 0 else None}
 
     @flask_login.login_required
     def put(self, book_id):
-        # payload = request.get_json()
-        # title = payload['title']
-        # author = payload['author']
-
         parser = reqparse.RequestParser()
         parser.add_argument('title', type=str)
         parser.add_argument('author', type=str)
