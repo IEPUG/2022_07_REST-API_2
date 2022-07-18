@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, Response, session
+from flask import Flask, request, Response, session
 import flask_login
 import logging
 import os
@@ -40,7 +40,7 @@ def unauthorized_callback():
 
 @app.errorhandler(404)
 def request_not_found(err):
-    return jsonify({'error': str(err)})
+    return Response('NOT FOUND', 404)
 
 
 @app.before_request

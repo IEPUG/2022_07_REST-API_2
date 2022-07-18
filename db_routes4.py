@@ -1,6 +1,5 @@
 from flask import Blueprint, Response
 from flask_restful import Resource, Api, reqparse
-import flask_login
 import logging
 
 import db_utils as db
@@ -16,8 +15,8 @@ class Books(Resource):
         records = db.select('SELECT id, title, author FROM Books')
         return {'books': records if len(records or '') > 0 else []}
 
-    @flask_login.login_required
-    def post(self):
+    @staticmethod
+    def post():
         title = ''
         try:
             parser = reqparse.RequestParser()
@@ -45,8 +44,8 @@ class Book(Resource):
         records = db.select('SELECT id, title, author FROM Books WHERE id = ?', (book_id,))
         return {'book': records[0] if len(records) > 0 else None}
 
-    @flask_login.login_required
-    def put(self, book_id):
+    @staticmethod
+    def put(book_id):
         parser = reqparse.RequestParser()
         parser.add_argument('title', type=str)
         parser.add_argument('author', type=str)
@@ -60,8 +59,8 @@ class Book(Resource):
         else:
             return Response(f"ID {book_id} does not exist!", 404)
 
-    @flask_login.login_required
-    def delete(self, book_id):
+    @staticmethod
+    def delete(book_id):
         try:
             result = db.execute('DELETE FROM BOOKS WHERE id=?', (book_id,))
             if result == 1:
