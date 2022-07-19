@@ -12,19 +12,21 @@ log.setLevel(logging.INFO)
 app = Flask(__name__)
 app.config.update(SECRET_KEY=os.urandom(16))
 
+API_PREFIX = '/api'
+
 
 @app.route('/', methods=['GET'])
 def index():
     return Response("OK", 200)
 
 
-@app.route('/api/books', methods=['GET'])
+@app.route(f'{API_PREFIX}/books', methods=['GET'])
 def books():
     records = select('SELECT id, title, author FROM Books')
     return {'books': records if len(records or '') > 0 else []}
 
 
-@app.route('/api/books/<int:book_id>', methods=['GET'])
+@app.route(f'{API_PREFIX}/books/<int:book_id>', methods=['GET'])
 def book(book_id):
     records = select('SELECT id, title, author FROM Books WHERE id = ?', (book_id,))
     return {'book': records[0] if len(records) > 0 else None}

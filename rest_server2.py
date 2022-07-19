@@ -13,6 +13,8 @@ log.setLevel(logging.INFO)
 app = Flask(__name__)
 app.config.update(SECRET_KEY=os.urandom(16))
 
+API_PREFIX = '/api'
+
 
 @app.route('/', methods=['GET'])
 def index():
@@ -34,8 +36,8 @@ class Book(Resource):
 
 
 api = Api(app)
-api.add_resource(Book, '/api/books/<int:book_id>')
-api.add_resource(Books, '/api/books')
+api.add_resource(Book, f'{API_PREFIX}/books/<int:book_id>')
+api.add_resource(Books, f'{API_PREFIX}/books')
 
 if __name__ == "__main__":
     db_init()
