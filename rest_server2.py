@@ -25,7 +25,7 @@ class Books(Resource):
     @staticmethod
     def get():
         records = select('SELECT id, title, author FROM Books')
-        return {'books': records if len(records or '') > 0 else []}
+        return {'books': records if len(records) > 0 else []}
 
 
 class Book(Resource):
