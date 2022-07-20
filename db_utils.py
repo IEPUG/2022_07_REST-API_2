@@ -50,10 +50,10 @@ def db_init():
                 "author TEXT)")
 
         # Populate with test data
-        books = {'I Robot': 'Isaac Asimov',
-                 'React to Python': 'Sheehan',
-                 'Zen and the Art of Motorcycle Maintenance': 'Robert Pirsig',
-                 'Cosmos': 'Carl Sagan',
-                 'The Contrary Farmer': 'Gene Logsdon'}
-        for title, author in books.items():
+        books = [('I Robot', 'Isaac Asimov'),
+                 ('React to Python', 'Sheehan'),
+                 ('Zen and the Art of Motorcycle Maintenance', 'Robert Pirsig'),
+                 ('Cosmos', 'Carl Sagan'),
+                 ('The Contrary Farmer', 'Gene Logsdon')]
+        for title, author in books:
             execute(f"INSERT INTO Books(title, author) values(?, ?)", (title, author))
